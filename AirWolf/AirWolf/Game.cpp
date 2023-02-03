@@ -105,11 +105,25 @@ void Game::processMouseUp(sf::Event t_event)
 	{
 		displacement.x = static_cast<float>(t_event.mouseButton.x) - m_heloLocation.x;
 		displacement.y = static_cast<float>(t_event.mouseButton.y) - m_heloLocation.y;
+		m_target.x = static_cast<float>(t_event.mouseButton.x);
+		m_target.y = static_cast<float>(t_event.mouseButton.y);
+		
 		lenght = std::sqrtf(displacement.x * displacement.x + displacement.y * displacement.y);
 		displacement = displacement / lenght;
 		displacement = displacement * m_speed;
 
 		m_heloVelocity = displacement;
+
+		if (m_target.x > m_heloLocation.x)
+		{
+			m_direction = Direction::Right;
+			m_heloSprite.setScale(1.0f, 1.0f);
+		}
+		else
+		{
+			m_direction = Direction::Left;
+			m_heloSprite.setScale(-1.0f, 1.0f);
+		}
 	}
 
 }
@@ -171,6 +185,7 @@ void Game::setupSprite()
 	m_heloSprite.setTexture(m_heloTexture);
 	m_heloSprite.setPosition(m_heloLocation);
 	m_heloSprite.setTextureRect(sf::IntRect{ 0,0,180, 64 });
+	m_heloSprite.setOrigin(90.0f, 0.0f);
 
 	if (!m_logoTexture.loadFromFile("ASSETS\\IMAGES\\SFML-LOGO.png"))
 	{
@@ -196,8 +211,20 @@ void Game::animateHelicopter()
 
 void Game::moveHelo()
 {
-	m_heloLocation += m_heloVelocity; // equation of motion
-
+	if (m_direction != Direction::None)
+	{
+		m_heloLocation += m_heloVelocity; // equation of motion
+	}
+	if (m_direction == Direction::Right
+		&& m_heloLocation.x > m_target.x)
+	{
+		m_direction = Direction::None;
+	}
+	if (m_direction == Direction::Left
+		&& m_heloLocation.x < m_target.x)
+	{
+		m_direction = Direction::None;
+	}
 
 	m_heloSprite.setPosition(m_heloLocation);
 }

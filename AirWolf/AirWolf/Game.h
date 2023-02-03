@@ -11,6 +11,13 @@
 /// </summary>
 #include <SFML/Graphics.hpp>
 
+enum class Direction
+{
+	None,
+	Left,
+	Right
+};
+
 class Game
 {
 public:
@@ -46,7 +53,10 @@ private:
 	sf::Sprite m_heloSprite;
 	sf::Vector2f m_heloLocation{ 100.0f,100.0f };
 	sf::Vector2f m_heloVelocity{ 1.0f,1.0f }; // change in location speed & direction
-	float m_speed = 6.23f; // how many pixels per clock tick
+	float m_speed = 5.23f; // how many pixels per clock tick
+
+	Direction m_direction{ Direction::None };
+	sf::Vector2f m_target{0.0f,0.0f}; // location of mouse click
 
 	int m_frame{0};//current frame of helo animation
 	float m_framecounter {0.0f};// frame counter
