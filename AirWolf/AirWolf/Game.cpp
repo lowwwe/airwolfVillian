@@ -209,6 +209,12 @@ void Game::setupAudio()
 	m_heloSound.setPitch(0.5);
 	m_heloSound.play();
 	m_heloSound.setLoop(true);
+
+	if (!m_music.openFromFile("ASSETS\\AUDIO\\music.ogg"))
+	{
+		std::cout << "problem with music" << std::endl;
+	}
+	m_music.play();
 }
 
 void Game::animateHelicopter()

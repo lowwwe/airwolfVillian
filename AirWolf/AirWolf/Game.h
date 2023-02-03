@@ -68,6 +68,7 @@ private:
 
 	sf::SoundBuffer m_heloSoundBuffer;
 	sf::Sound m_heloSound;
+	sf::Music m_music;
 
 };
 
