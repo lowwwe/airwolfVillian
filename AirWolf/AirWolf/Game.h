@@ -30,6 +30,7 @@ private:
 	
 	void setupFontAndText();
 	void setupSprite();
+	void animateHelicopter();
 
 	sf::RenderWindow m_window; // main SFML window
 	sf::Font m_ArialBlackfont; // font used by message
@@ -42,6 +43,10 @@ private:
 	sf::Texture m_heloTexture;
 	sf::Sprite m_heloSprite;
 	sf::Vector2f m_heloLocation{ 100.0f,100.0f };
+
+	int m_frame{0};//current frame of helo animation
+	float m_framecounter {0.0f};// frame counter
+	float m_frameIncrement = 0.5f; // frame inc rate updated 60 fps
 
 
 };
