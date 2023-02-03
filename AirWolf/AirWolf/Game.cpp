@@ -104,6 +104,7 @@ void Game::update(sf::Time t_deltaTime)
 		m_window.close();
 	}
 	animateHelicopter();
+	moveHelo();
 }
 
 /// <summary>
@@ -170,4 +171,12 @@ void Game::animateHelicopter()
 		m_frame = frame;
 		m_heloSprite.setTextureRect(sf::IntRect{ 0,frame * FRAME_HEIGHT,180,FRAME_HEIGHT });
 	}
+}
+
+void Game::moveHelo()
+{
+	m_heloLocation += m_heloVelocity; // equation of motion
+
+
+	m_heloSprite.setPosition(m_heloLocation);
 }

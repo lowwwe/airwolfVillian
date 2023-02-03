@@ -31,6 +31,7 @@ private:
 	void setupFontAndText();
 	void setupSprite();
 	void animateHelicopter();
+	void moveHelo();
 
 	sf::RenderWindow m_window; // main SFML window
 	sf::Font m_ArialBlackfont; // font used by message
@@ -43,6 +44,8 @@ private:
 	sf::Texture m_heloTexture;
 	sf::Sprite m_heloSprite;
 	sf::Vector2f m_heloLocation{ 100.0f,100.0f };
+	sf::Vector2f m_heloVelocity{ 1.0f,1.0f }; // change in location speed & direction
+	float m_speed = 1.23f; // how many pixels per clock tick
 
 	int m_frame{0};//current frame of helo animation
 	float m_framecounter {0.0f};// frame counter
