@@ -10,6 +10,7 @@
 /// Don't forget the endif at the bottom
 /// </summary>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 enum class Direction
 {
@@ -38,6 +39,8 @@ private:
 	
 	void setupFontAndText();
 	void setupSprite();
+	void setupAudio();
+
 	void animateHelicopter();
 	void moveHelo();
 
@@ -60,8 +63,11 @@ private:
 
 	int m_frame{0};//current frame of helo animation
 	float m_framecounter {0.0f};// frame counter
-	float m_frameIncrement = 0.5f; // frame inc rate updated 60 fps
+	float m_frameIncrement = 0.3f; // frame inc rate updated 60 fps
 
+
+	sf::SoundBuffer m_heloSoundBuffer;
+	sf::Sound m_heloSound;
 
 };
 

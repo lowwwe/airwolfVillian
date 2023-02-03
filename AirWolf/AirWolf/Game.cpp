@@ -22,6 +22,7 @@ Game::Game() :
 {
 	setupFontAndText(); // load font 
 	setupSprite(); // load texture
+	setupAudio();
 }
 
 /// <summary>
@@ -103,6 +104,7 @@ void Game::processMouseUp(sf::Event t_event)
 	sf::Vector2f displacement;
 	if (sf::Mouse::Left == t_event.mouseButton.button)
 	{
+		m_frameIncrement = 0.6f;
 		displacement.x = static_cast<float>(t_event.mouseButton.x) - m_heloLocation.x;
 		displacement.y = static_cast<float>(t_event.mouseButton.y) - m_heloLocation.y;
 		m_target.x = static_cast<float>(t_event.mouseButton.x);
@@ -113,11 +115,12 @@ void Game::processMouseUp(sf::Event t_event)
 		displacement = displacement * m_speed;
 
 		m_heloVelocity = displacement;
-
+		m_heloSound.setPitch(1.0f);
 		if (m_target.x > m_heloLocation.x)
 		{
 			m_direction = Direction::Right;
 			m_heloSprite.setScale(1.0f, 1.0f);
+
 		}
 		else
 		{
@@ -196,6 +199,18 @@ void Game::setupSprite()
 	m_logoSprite.setPosition(300.0f, 180.0f);
 }
 
+void Game::setupAudio()
+{
+	if (!m_heloSoundBuffer.loadFromFile("ASSETS\\AUDIO\\helicopter.wav"))
+	{
+		std::cout <<  "sound issue" << std::endl;
+	}
+	m_heloSound.setBuffer(m_heloSoundBuffer);
+	m_heloSound.setPitch(0.5);
+	m_heloSound.play();
+	m_heloSound.setLoop(true);
+}
+
 void Game::animateHelicopter()
 {
 	int const FRAME_HEIGHT = 64;
@@ -219,11 +234,15 @@ void Game::moveHelo()
 		&& m_heloLocation.x > m_target.x)
 	{
 		m_direction = Direction::None;
+		m_frameIncrement = 0.25f;
+		m_heloSound.setPitch(0.5);
 	}
 	if (m_direction == Direction::Left
 		&& m_heloLocation.x < m_target.x)
 	{
 		m_direction = Direction::None;
+		m_frameIncrement = 0.25f;
+		m_heloSound.setPitch(0.5);
 	}
 
 	m_heloSprite.setPosition(m_heloLocation);
