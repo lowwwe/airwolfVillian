@@ -77,6 +77,10 @@ void Game::processEvents()
 		{
 			processKeys(newEvent);
 		}
+		if (sf::Event::MouseButtonReleased == newEvent.type)
+		{
+			processMouseUp(newEvent);
+		}
 	}
 }
 
@@ -91,6 +95,23 @@ void Game::processKeys(sf::Event t_event)
 	{
 		m_exitGame = true;
 	}
+}
+
+void Game::processMouseUp(sf::Event t_event)
+{
+	float lenght = 0.0f;
+	sf::Vector2f displacement;
+	if (sf::Mouse::Left == t_event.mouseButton.button)
+	{
+		displacement.x = static_cast<float>(t_event.mouseButton.x) - m_heloLocation.x;
+		displacement.y = static_cast<float>(t_event.mouseButton.y) - m_heloLocation.y;
+		lenght = std::sqrtf(displacement.x * displacement.x + displacement.y * displacement.y);
+		displacement = displacement / lenght;
+		displacement = displacement * m_speed;
+
+		m_heloVelocity = displacement;
+	}
+
 }
 
 /// <summary>

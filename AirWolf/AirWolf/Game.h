@@ -25,6 +25,7 @@ private:
 
 	void processEvents();
 	void processKeys(sf::Event t_event);
+	void processMouseUp(sf::Event t_event);
 	void update(sf::Time t_deltaTime);
 	void render();
 	
@@ -45,7 +46,7 @@ private:
 	sf::Sprite m_heloSprite;
 	sf::Vector2f m_heloLocation{ 100.0f,100.0f };
 	sf::Vector2f m_heloVelocity{ 1.0f,1.0f }; // change in location speed & direction
-	float m_speed = 1.23f; // how many pixels per clock tick
+	float m_speed = 6.23f; // how many pixels per clock tick
 
 	int m_frame{0};//current frame of helo animation
 	float m_framecounter {0.0f};// frame counter
